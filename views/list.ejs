@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do-List</title>
+
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="box" id="heading">
+      <h1><%= DayofTheWeek %></h1>
+    </div>
+
+    <div class="box">
+      <% newListItems.forEach(function(item) { %>
+
+      <form action="/delete" method="post" class="oewe" >
+        <div class="item  ">
+          <label class="fancy-checkbox ">
+          <input
+            type="checkbox"
+            name="checkedItem"
+            value="<%=item._id%>"
+            onChange="this.form.submit()"
+          />
+          <i class="fa-solid fa-xmark"></i>        
+        </label>
+          <input type="hidden" name="ListNameCust" value="<%=DayofTheWeek%>" />
+
+          <p><%= item.name %></p>
+        </div>
+      </form>
+      <% }) %>
+
+      <form class="item oriForm" action="/" method="post">
+        <input type="text" name="newItem" placeholder="New Item" />
+
+        <button type="submit" name="list" value="<%= DayofTheWeek %>">+</button>
+      </form>
+    </div>
+  </body>
+</html>
