@@ -1,3 +1,8 @@
+node_modules/
+.history/
+
+
+
 # Compiled source #
 ###################
 *.com
@@ -23,8 +28,6 @@
 *.log
 *.sql
 *.sqlite
-node_modules/
-.history/
 
 
 # OS generated files #
