@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
+
 main().catch((err) => console.log(err));
 
 async function main() {
@@ -36,9 +37,24 @@ const listSchema = {
 };
 const items = mongoose.model("List", listSchema);
 
+// Get current date 
+
+let today = new Date();
+let currentDay = today.getDay();
+let options = { weekday: "long", month: "long", day: "numeric" };
+let day = today.toLocaleDateString("en-US", options);
+
+// root route get
+
 app.get("/", function (req, res) {
+
+  
   list0.find({}, function (err, foundItems) {
+   
+  
+  
     if (foundItems.length === 0) {
+
       list0.insertMany(defultItems, function (err) {
         if (err) {
           console.log(err);
@@ -49,37 +65,44 @@ app.get("/", function (req, res) {
 
       res.redirect("/");
     } else {
-      res.render("list", { DayofTheWeek: "Today", newListItems: foundItems });
+      res.render("list", { DayofTheWeek: day,
+         newListItems: foundItems,
+         });
     }
   });
 });
 
-// routing 
+// route parameters
 app.get("/:customListName", function (req, res) {
   const customListName = _.capitalize(req.params.customListName);
 
   items.findOne({ name: customListName }, function (err, foundList) {
     if (!err) {
       if (!foundList) {
-        const list = new items({ name: customListName, items: defultItems });
+        const list = new items({ name: customListName,
+           items: defultItems,
+
+          });
         list.save();
         res.redirect("/" + customListName);
       } else {
         res.render("list", {
           DayofTheWeek: foundList.name,
           newListItems: foundList.items,
+
         });
       }
     }
   });
 });
 
+// root route post
 app.post("/", function (req, res) {
   const itemName = req.body.newItem;
   const listName = req.body.list;
 
   const item = new list0({ name: itemName });
-  if (listName === "Today") {
+  if (listName === day) {
     item.save();
 
     res.redirect("/");
@@ -92,11 +115,13 @@ app.post("/", function (req, res) {
   }
 });
 
+// delete route
+
 app.post("/delete", function (req, res) {
   const listName = (req.body.ListNameCust);
   const deleteCheckedId = (req.body.checkedItem);
 
-  if (listName === "Today") {
+  if (listName === day) {
     list0.findByIdAndRemove(deleteCheckedId, function (err) {
       console.log("item Deleted");
     });
@@ -114,6 +139,15 @@ app.post("/delete", function (req, res) {
     );
   }
 });
+
+// new list route
+app.post("/newList", (req, res) => {
+  const newListName = req.body.newListName;
+  res.redirect("/" + newListName);
+});
+
+
+
 
 app.listen(3000, function () {
   console.log("server started on port 3000");
