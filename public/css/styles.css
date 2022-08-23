@@ -1,8 +1,3 @@
-
-
-
-
-
 body{
   font-family: 'Exo', sans-serif;
   min-height: auto;
@@ -10,8 +5,6 @@ body{
   margin:0;
   height:100%;
   position: relative;
-
-
 }
 
 
@@ -19,7 +12,6 @@ body{
   display: flex;
   min-height:100%;
   position:relative;
-
 }
 
 
@@ -176,6 +168,20 @@ input[type="text"]:focus {
     center/15000%;
 }
 
+/* Buttons  */
+.FirstButton{
+  background-color:  rgb(32, 47, 96) !important;
+  width: 120px !important  ;
+  height: 0 !important;
+
+}
+.FirstButton:hover{
+  background: rgb(35, 41, 67) !important;
+}
+.FirstMenu{
+  text-align: center !important;
+}
+
 .myButton {
   color: #fff;
   border-radius: 20px;
@@ -202,7 +208,7 @@ button.add {
 }
 
 button.add:hover {
-  background: #33280a ;
+  background: rgb(173, 162, 162);
   background-position: center;
   -webkit-transition: background 0.8s;
   -o-transition: background 0.8s;
@@ -484,26 +490,19 @@ footer {
   text-align: center;
   margin-top:auto; 
   clear: both;
-
-  
 }
 
+/* Socials in Footer  */
 .contact-item {
   padding: 0 0.8rem;
   color: #1a374d;
   font-size: 2rem;
 }
-
 .contact-item:hover {
   -webkit-transform: scale(1.2);
   -ms-transform: scale(1.2);
   transform: scale(1.2);
 }
-
-
-
-
-
 
 
 
