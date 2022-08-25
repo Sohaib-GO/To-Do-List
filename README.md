@@ -13,3 +13,6 @@ Technologies used:
 - EJS
 - MongoDB
 - Mongoose 
+
+
+![](todo.gif)
