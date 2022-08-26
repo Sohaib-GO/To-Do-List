@@ -46,16 +46,16 @@ let day = today.toLocaleDateString("en-US", options);
 
 // root route get
 
-app.get("/", function (req, res) {
+app.get("/",  (req, res) =>{
 
   
-  list0.find({}, function (err, foundItems) {
+  list0.find({},  (err, foundItems)=> {
    
   
   
     if (foundItems.length === 0) {
 
-      list0.insertMany(defultItems, function (err) {
+      list0.insertMany(defultItems,  (err)=> {
         if (err) {
           console.log(err);
         } else {
@@ -73,10 +73,10 @@ app.get("/", function (req, res) {
 });
 
 // route parameters
-app.get("/:customListName", function (req, res) {
+app.get("/:customListName",  (req, res)=> {
   const customListName = _.capitalize(req.params.customListName);
 
-  items.findOne({ name: customListName }, function (err, foundList) {
+  items.findOne({ name: customListName },  (err, foundList)=> {
     if (!err) {
       if (!foundList) {
         const list = new items({ name: customListName,
@@ -97,7 +97,7 @@ app.get("/:customListName", function (req, res) {
 });
 
 // root route post
-app.post("/", function (req, res) {
+app.post("/",  (req, res) =>{
   const itemName = req.body.newItem;
   const listName = req.body.list;
 
@@ -107,7 +107,7 @@ app.post("/", function (req, res) {
 
     res.redirect("/");
   } else {
-    items.findOne({ name: listName }, function (err, foundList) {
+    items.findOne({ name: listName },  (err, foundList) =>{
       foundList.items.push(item);
       foundList.save();
       res.redirect("/" + listName);
@@ -117,12 +117,12 @@ app.post("/", function (req, res) {
 
 // delete route
 
-app.post("/delete", function (req, res) {
+app.post("/delete",  (req, res) =>{
   const listName = (req.body.ListNameCust);
   const deleteCheckedId = (req.body.checkedItem);
 
   if (listName === day) {
-    list0.findByIdAndRemove(deleteCheckedId, function (err) {
+    list0.findByIdAndRemove(deleteCheckedId,  (err)=> {
       console.log("item Deleted");
     });
 
@@ -131,7 +131,7 @@ app.post("/delete", function (req, res) {
     items.findOneAndUpdate(
       { name: listName },
       { $pull: { items: { _id: deleteCheckedId } } },
-      function (err, foundList) {
+       (err, foundList) =>{
         if (!err) {
           res.redirect("/" + listName);
         }
@@ -151,6 +151,6 @@ app.post("/newList", (req, res) => {
 
 
 
-app.listen(3000, function () {
+app.listen(3000,  () =>{
   console.log("server started on port 3000");
 });
