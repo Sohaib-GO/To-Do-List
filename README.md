@@ -1,5 +1,6 @@
 # To-Do-List
-A basic To-Do-List, I will add features and improvements regularly !
+A basic To-Do-List, each list created has its own dedicated route,
+built using the following technilogies. 
 
 
 
